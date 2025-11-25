@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Guru</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .video-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .scene.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+        }
+
+        .book-icon {
+            font-size: 120px;
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        .apple-icon {
+            font-size: 100px;
+            animation: bounce 2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        .heart-icon {
+            font-size: 80px;
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: white;
+            text-align: center;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 15px;
+        }
+
+        p {
+            font-size: 1.5em;
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.6;
+            padding: 0 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            color: gold;
+            font-size: 20px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .progress {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container" id="videoContainer">
+        <!-- Progress Indicator -->
+        <div class="progress" id="progress">Scene 1 / 5</div>
+
+        <!-- Scene 1: Opening -->
+        <div class="scene active" id="scene1">
+            <div class="book-icon">📚</div>
+            <h1>Selamat Hari Guru!</h1>
+            <p>25 November 2025</p>
+        </div>
+
+        <!-- Scene 2: Appreciation -->
+        <div class="scene" id="scene2">
+            <div class="apple-icon">🍎</div>
+            <h2>Terima Kasih Guru Pahlawan Tanpa Tanda Jasa</h2>
+            <p>Anda telah mendidik, membimbing, dan menginspirasi kami dengan penuh dedikasi dan kasih sayang</p>
+        </div>
+
+        <!-- Scene 3: Impact -->
+        <div class="scene" id="scene3">
+            <div class="heart-icon">❤️</div>
+            <h2>Jasa Anda Tak Akan Kami Lupakan</h2>
+            <p>Setiap ilmu yang Anda ajarkan adalah cahaya yang menerangi masa depan kami</p>
+        </div>
+
+        <!-- Scene 4: Tribute -->
+        <div class="scene" id="scene4">
+            <div class="book-icon">🎓</div>
+            <h2>Guru Adalah Lilin</h2>
+            <p>Yang membakar dirinya sendiri untuk menerangi jalan orang lain</p>
+        </div>
+
+        <!-- Scene 5: Closing -->
+        <div class="scene" id="scene5">
+            <div class="apple-icon">🌟</div>
+            <h1>Semoga Sehat Selalu</h1>
+            <p>Dan terus menginspirasi generasi penerus bangsa!</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button onclick="prevScene()">⬅️ Sebelumnya</button>
+        <button onclick="togglePlay()" id="playBtn">▶️ Putar Otomatis</button>
+        <button onclick="nextScene()">Berikutnya ➡️</button>
+    </div>
+
+    <script>
+        let currentScene = 1;
+        const totalScenes = 5;
+        let isPlaying = false;
+        let autoPlayInterval;
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7', '#a29bfe'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.getElementById('videoContainer').appendChild(confetti);
+            }
+        }
+
+        // Create sparkles
+        function createSparkles() {
+            const sparkles = ['✨', '⭐', '🌟', '💫'];
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.getElementById('videoContainer').appendChild(sparkle);
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('progress').textContent = `Scene ${currentScene} / ${totalScenes}`;
+        }
+
+        function showScene(sceneNumber) {
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+            document.getElementById(`scene${sceneNumber}`).classList.add('active');
+            currentScene = sceneNumber;
+            updateProgress();
+        }
+
+        function nextScene() {
+            if (currentScene < totalScenes) {
+                showScene(currentScene + 1);
+            } else {
+                showScene(1);
+            }
+        }
+
+        function prevScene() {
+            if (currentScene > 1) {
+                showScene(currentScene - 1);
+            } else {
+                showScene(totalScenes);
+            }
+        }
+
+        function togglePlay() {
+            const btn = document.getElementById('playBtn');
+            if (isPlaying) {
+                clearInterval(autoPlayInterval);
+                btn.textContent = '▶️ Putar Otomatis';
+                isPlaying = false;
+            } else {
+                autoPlayInterval = setInterval(() => {
+                    nextScene();
+                }, 3000);
+                btn.textContent = '⏸️ Jeda';
+                isPlaying = true;
+            }
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextScene();
+            if (e.key === 'ArrowLeft') prevScene();
+            if (e.key === ' ') {
+                e.preventDefault();
+                togglePlay();
+            }
+        });
+
+        // Initialize
+        createConfetti();
+        createSparkles();
+        updateProgress();
+    </script>
+</body>
+</html>
